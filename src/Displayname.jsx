@@ -1,12 +1,17 @@
 import { useState } from "react";
 
 function Displayname() {
-    const [firstName, setFirstname] = useState("");
-    const [lastName, setLastname] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [fullName, setFullName] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // Check if either field is empty
+        if (!firstName || !lastName) {
+            setFullName(""); // Clear fullName if any field is empty
+            return;
+        }
         setFullName(`Full Name: ${firstName} ${lastName}`);
     }
 
@@ -21,7 +26,7 @@ function Displayname() {
                         id="firstName" 
                         name="firstName" 
                         value={firstName}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        onChange={(e) => setFirstName(e.target.value)}
                         title="Please fill out this field" // Default tooltip
                     />
                 </div>
@@ -32,12 +37,13 @@ function Displayname() {
                         id="lastName" 
                         name="lastName" 
                         value={lastName}
-                        onChange={(e) => setLastname(e.target.value)}
+                        onChange={(e) => setLastName(e.target.value)}
                         title="Please fill out this field" // Default tooltip
                     />
                 </div>
                 <button type="submit">Submit</button>
             </form>
+            {/* Only display the fullName if it is not empty */}
             {fullName && <div style={{ marginTop: '15px' }}>{fullName}</div>}
         </>
     );
